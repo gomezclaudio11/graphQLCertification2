@@ -21,7 +21,7 @@ const QueryResult = ({ loading, error, data, children }) => {
     return <p>Nothing to show...</p>;
   }
   if (data) {
-    return children;
+    return children; // Renderiza los hijos
   }
 };
 
