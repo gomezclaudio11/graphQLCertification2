@@ -8,6 +8,16 @@ type Query {
   "Get a specific track by ID"
   track(id: ID!): Track   # ← Define que necesita un argumento
 }
+type Mutation {
+    incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
+}
+
+type IncrementTrackViewsResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    track: Track
+}
 
 type Track {
     id: ID!

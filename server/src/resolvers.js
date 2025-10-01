@@ -14,13 +14,32 @@ const resolvers = {
         author: ({ authorId }, _, { dataSources }) => {
             return dataSources.trackAPI.getAuthor(authorId) 
         },
-        
+
         modules: ({id}, _, {dataSources}) => {
             return dataSources.trackAPI.getTrackModules(id)
         }
-    }
-
-};
+    },
+    Mutation: {
+        incrementTrackViews: async (_, { id }, { dataSources }) => {
+            try {
+            const track = await dataSources.trackAPI.incrementTrackViews(id);
+            return {
+                code: 200,
+                success: true,
+                message: `Successfully incremented number of views for track ${id}`,
+                track,
+            } 
+            } catch (err) {
+               return {
+                code: err.extensions.response.status,
+                success: false,
+                message: err.extensions.response.body,
+                track: null
+            };
+          }
+        }
+    } 
+ };
 
 /**
  * 4 parametros de los resolveres
